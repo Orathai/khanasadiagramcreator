@@ -1,4 +1,4 @@
 khanasadiagramcreator
 =====================
 
-create diagram from database schema
+Create diagram from database schema
