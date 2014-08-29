@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} [%-5p] [%X] [%c][%M][%L] - %m%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com" level="INFO"/>
+    <logger name="spark" level="INFO"/>
+    <logger name="httpclient.wire" level="INFO"/>
+    <logger name="freemarker.cache" level="INFO"/>
+    <logger name="net" level="INFO"/>
+    <logger name="no" level="INFO"/>
+    <logger name="org" level="INFO"/>
+    <logger name="org.dynamicus" level="DEBUG"/>
+    <root level="ALL">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>
