@@ -4,7 +4,7 @@ Khanasa diagram creator via GraphViz Java API
 **Purpose :** Create KHANASA diagram in png from database schema.
 
 You find the documentation here:
-https://github.com/nostra/khanasadiagramcreator/wiki/
+https://github.com/nostra/khanasadiagramcreator/wiki/Index
 
 .. image:: src/images/khanasadiagram.png
 
