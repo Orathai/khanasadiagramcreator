@@ -15,6 +15,7 @@ References
 
 * `http://www.graphviz.org <http://www.graphviz.org>`_
 * `GraphViz Java API Loria <http://www.loria.fr/~szathmar/off/projects/java/GraphVizAPI/index.php>`_
+* `Spark Java Framework <http://www.sparkjava.com/>`_
 
 Author
 ------
