@@ -18,13 +18,18 @@
     </scm>
 
     <properties>
-        <junit.version>4.11</junit.version>
-        <mysql.version>5.1.31</mysql.version>
-        <slf4j.version>1.7.7</slf4j.version>
+        <junit.version>4.12</junit.version>
+        <mysql.version>5.1.34</mysql.version>
+        <slf4j.version>1.7.9</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <spark.version>2.0.0</spark.version>
+        <spark.version>2.1</spark.version>
+        <spark.template.freemarker.version>2.0.0</spark.template.freemarker.version>
         <postgresql.version>9.3-1102-jdbc41</postgresql.version>
     </properties>
+
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
 
     <dependencyManagement>
         <dependencies>
@@ -47,6 +52,7 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
@@ -58,10 +64,17 @@
                 <artifactId>spark-core</artifactId>
                 <version>${spark.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.sparkjava</groupId>
                 <artifactId>spark-template-freemarker</artifactId>
-                <version>${spark.version}</version>
+                <version>${spark.template.freemarker.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -108,6 +121,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
                 <configuration>
                     <javadocVersion>1.8</javadocVersion>
                 </configuration>
@@ -115,6 +129,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -137,7 +152,7 @@
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.17</version>
+                <version>2.18</version>
                 <executions>
                     <execution>
                         <goals>
