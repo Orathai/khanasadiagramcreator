@@ -19,7 +19,7 @@ import java.util.Map;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
-import static spark.SparkBase.setPort;
+import static spark.SparkBase.port;
 import static spark.SparkBase.staticFileLocation;
 
 public class KhanasaController {
@@ -33,7 +33,7 @@ public class KhanasaController {
 
     public void khanasaDiagramCreator(){
 
-        setPort(4567);
+        port(4567);
 
         staticFileLocation("/public");
 
