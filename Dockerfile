@@ -1,4 +1,4 @@
-FROM dockerfile/java:oracle-java8
+FROM openjdk:8
 
 # Install maven
 RUN apt-get update
