@@ -1,7 +1,7 @@
 package org.dynamicus.jdbc;
 
-import org.dynamicus.bean.DatabaseCredentialBean;
-import org.dynamicus.bean.DatabaseSchemaBean;
+import org.dynamicus.model.DbCredential;
+import org.dynamicus.model.DbSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class TableNameList {
     private static final Logger log = LoggerFactory.getLogger(TableNameList.class);
 
-    public DatabaseSchemaBean getTableNameList(DatabaseCredentialBean dbCredential) {
+    public DbSchema getTableNameList(DbCredential dbCredential) {
 
         try {
             Class.forName(dbCredential.getJdbcDriver()).newInstance();
@@ -26,12 +26,14 @@ public class TableNameList {
         }
 
         try (Connection connection = DriverManager.getConnection(
-                dbCredential.getJdbcUrl(), dbCredential.getUser(), dbCredential.getPassword())) {
+                dbCredential.getJdbcUrl(),
+                dbCredential.getUser(),
+                dbCredential.getPassword())) {
 
             DatabaseMetaData databaseMetaData = connection.getMetaData();
             String[] types = {"TABLE"};
 
-            DatabaseSchemaBean dbBean = new DatabaseSchemaBean();
+            DbSchema dbBean = new DbSchema();
 
             //get table name list
             List<String> tableNameList = new ArrayList<>();

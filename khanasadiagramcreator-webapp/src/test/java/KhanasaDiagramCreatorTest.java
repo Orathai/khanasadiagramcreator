@@ -1,7 +1,5 @@
-import org.dynamicus.bean.DatabaseCredentialBean;
-import org.dynamicus.bean.DatabaseSchemaBean;
 import org.dynamicus.khanasa.KhanasaDiagramCreator;
-import org.junit.Ignore;
+import org.dynamicus.model.DbSchema;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -13,17 +11,10 @@ import static org.junit.Assert.assertEquals;
 
 public class KhanasaDiagramCreatorTest {
 
-    @Ignore
-    @Test
-    public void testKhanasaDiagramCreator() throws Exception {
-        DatabaseCredentialBean dbCredential = createCredential();
-        new KhanasaDiagramCreator().khanasaDiagramCreator(dbCredential);
-    }
-
     @Test
     public void emulateTableNameList() throws SQLException {
 
-        DatabaseSchemaBean dbBean = new DatabaseSchemaBean();
+        DbSchema dbBean = new DbSchema();
         List<String> fkAndTableNameList = new ArrayList<>();
 
         fkAndTableNameList.addAll(Arrays.asList("dbsource -> infoprod"
@@ -45,15 +36,5 @@ public class KhanasaDiagramCreatorTest {
         facit.append("infoprod -> infocust ");
         facit.append("} }");
         return facit;
-    }
-
-    private DatabaseCredentialBean createCredential() {
-        DatabaseCredentialBean dbCredential = new DatabaseCredentialBean();
-        dbCredential.setUser("niamcreator");
-        dbCredential.setPassword("maimai");
-        dbCredential.setJdbcDriver("com.mysql.jdbc.Driver");
-        dbCredential.setJdbcUrl("jdbc:mysql://localhost/" + dbCredential.getUser() + "?");
-
-        return dbCredential;
     }
 }

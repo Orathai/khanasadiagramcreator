@@ -31,7 +31,13 @@
                         <td><input type="text" name="port"></td>
                     </tr>
                     <tr>
-                        <td align="right">Database USER :</td>
+                        <td align="right">Database Name :</td>
+                        <td>
+                            <input type="text" name="database"><span class="txt_red">*</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">Database User :</td>
                         <td>
                             <input type="text" name="user"><span class="txt_red">*</span>
                         </td>

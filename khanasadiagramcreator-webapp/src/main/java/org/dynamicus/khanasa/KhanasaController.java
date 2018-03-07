@@ -1,7 +1,7 @@
 package org.dynamicus.khanasa;
 
 import freemarker.template.Configuration;
-import org.dynamicus.bean.DatabaseCredentialBean;
+import org.dynamicus.model.DbCredential;
 import org.dynamicus.enumuration.DatabaseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class KhanasaController {
         new KhanasaController().khanasaDiagramCreator();
     }
 
-    public void khanasaDiagramCreator(){
+    public void khanasaDiagramCreator() {
 
         port(4567);
 
@@ -51,16 +51,17 @@ public class KhanasaController {
         }, new FreeMarkerEngine(createDefaultConfiguration()));
 
         post("/submit.html", (request, response) -> {
+            String database = request.queryParams("database");
             String user = request.queryParams("user");
             String password = request.queryParams("password");
             String ip = request.queryParams("ip");
-            String port  = request.queryParams("port");
-            int dbType  = Integer.parseInt(request.queryParams("dbType"));
+            String port = request.queryParams("port");
+            int dbType = Integer.parseInt(request.queryParams("dbType"));
             DatabaseType databaseType = DatabaseType.fromNumberValue(dbType);
             log.debug("USER : " + user + ", PASSWORD : " + password + ", DB TYPE : " + dbType);
 
             //Create database credential
-            DatabaseCredentialBean dbCredential = createCredential(user, password, ip, port, databaseType);
+            DbCredential dbCredential = createCredential(user, password, ip, port, databaseType, database);
             log.debug("Connecting database..");
             new KhanasaDiagramCreator().khanasaDiagramCreator(dbCredential);
 
@@ -99,23 +100,24 @@ public class KhanasaController {
         return configuration;
     }
 
-    private DatabaseCredentialBean createCredential(String user,
-                                                String password,
-                                                String ip,
-                                                String port,
-                                                DatabaseType dbType) {
-        DatabaseCredentialBean dbCredential = new DatabaseCredentialBean();
-        dbCredential.setUser(user);
-        dbCredential.setPassword(password);
-        dbCredential.setJdbcDriver(new KhanasaJdbcProperties().getJdbcDriver(dbType));
-        dbCredential.setJdbcUrl(new KhanasaJdbcProperties().getJdbcUrl(dbType, user, ip, port));
+    private DbCredential createCredential(String user,
+                                          String password,
+                                          String ip,
+                                          String port,
+                                          DatabaseType dbType,
+                                          String database) {
+        DbCredential dbCredential = new DbCredential(
+                user,
+                password,
+                new KhanasaJdbcComponent().getJdbcDriver(dbType),
+                new KhanasaJdbcComponent().getJdbcUrl(dbType, ip, port, database));
 
-        log.debug("JDBC DRIVER : " + new KhanasaJdbcProperties().getJdbcDriver(dbType));
+        log.debug("JDBC DRIVER : " + new KhanasaJdbcComponent().getJdbcDriver(dbType));
 
         return dbCredential;
     }
 
-    public Map<String, String> createDatabaseTypeMap() {
+    private Map<String, String> createDatabaseTypeMap() {
         Map<String, String> databaseTypeMap = new LinkedHashMap<String, String>();
         for (DatabaseType dbType : DatabaseType.values()) {
             databaseTypeMap.put(String.valueOf(dbType.toNumberValue()), dbType.toTextValue());

@@ -1,7 +1,7 @@
 package org.dynamicus.khanasa;
 
-import org.dynamicus.bean.DatabaseCredentialBean;
-import org.dynamicus.bean.DatabaseSchemaBean;
+import org.dynamicus.model.DbCredential;
+import org.dynamicus.model.DbSchema;
 import org.dynamicus.jdbc.TableNameList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,7 @@ import java.util.List;
 public class KhanasaDiagramCreator {
     private static final Logger log = LoggerFactory.getLogger(KhanasaDiagramCreator.class);
 
-    public void khanasaDiagramCreator(DatabaseCredentialBean dbCredential) {
+    public void khanasaDiagramCreator(DbCredential dbCredential) {
 
         StringBuilder graph = getGraphStringBuilder(new TableNameList().getTableNameList(dbCredential));
 
@@ -25,7 +25,7 @@ public class KhanasaDiagramCreator {
         gv.writeGraphToFile(gv.getGraph(graph.toString(), type), out);
     }
 
-    public StringBuilder getGraphStringBuilder(DatabaseSchemaBean dbBean) {
+    public StringBuilder getGraphStringBuilder(DbSchema dbBean) {
         StringBuilder graph = new StringBuilder();
         graph.append("digraph G {\n")
                 .append("\trankdir = LR;\n")
@@ -41,7 +41,7 @@ public class KhanasaDiagramCreator {
         return graph;
     }
 
-    private String buildNodeWithNameAndForeignKey(DatabaseSchemaBean db) {
+    private String buildNodeWithNameAndForeignKey(DbSchema db) {
         StringBuilder sb = new StringBuilder();
         List<String> fkAndTableNameList = db.getFkAndTableNameList();
 
